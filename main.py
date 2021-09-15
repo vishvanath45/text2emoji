@@ -9,7 +9,6 @@ app = Flask(__name__)
 @app.route("/", methods=['GET', 'POST'])
 def hello_world():
     if request.method == 'GET':
-        return render_template('landing_page.html', name="vishva")
+        return render_template('landing_page.html')
     elif request.method == 'POST':
         return emojify(request.form['text'])
-            
