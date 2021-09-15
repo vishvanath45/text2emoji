@@ -1,10 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- 
 
-from flask import Flask
+from flask import Flask, render_template, request
+from domain import emojify
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def hello_world():
-    return "<p>Hello, World! 😊 </p>"
+    if request.method == 'GET':
+        return render_template('landing_page.html', name="vishva")
+    elif request.method == 'POST':
+        return emojify(request.form['text'])
+            
