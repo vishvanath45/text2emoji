@@ -1,10 +1,42 @@
 <!doctype html>
-<title>Emojify</title>
-<h1>Enter text below to emojify</h1>
+<html>
+    <!-- <head>
+        <script type="text/javascript" src="static/js/jquery.js"></script>
+    </head> -->
+    <title>Emojify</title>
+    <h1>Enter text below to emojify</h1>
+    
+    <p>Make spice to texting, add relevant emoji, makes conversation fun and hilarious</p>
+    
+    <form method="post" id= "textdata">
+        <input type="text" name="text" id="input-text" required>
+        <button type="submit">Emojify</button>
+    </form>
 
-<p>Make spice to texting, add relevant emoji, makes conversation fun and hilarious</p>
+    <p id="emojified_text"></p>
 
-<form method="post">
-    <input type="text" name="text" id="input-text" required>
-    <button>Emojify</button>
-</form>
+    <script>
+    const form = document.getElementById('textdata');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+        const searchParams = new URLSearchParams();
+        
+        for (const pair of formData) {
+            searchParams.append(pair[0], pair[1]);
+        }
+
+        fetch('/', {
+            method: 'post',
+            body: searchParams
+        }).then(function (response) {
+            return response.text();
+        }).then(function (text) {
+            document.getElementById('emojified_text').innerText = text
+            console.log(text)
+        })
+    });
+    </script>
+</html>
