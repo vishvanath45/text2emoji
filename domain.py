@@ -2,7 +2,7 @@ import json
 import random
 import string
 
-file = open('source2.json')
+file = open('source1.json')
 
 data = json.load(file)
 
@@ -11,6 +11,7 @@ def emojify(text):
     emojified_text = ""
 
     for word in words:
+        # word = word.lower()
         emoji_list = data.get(word)
         if(emoji_list == None ):
             emojified_text += word + " "
