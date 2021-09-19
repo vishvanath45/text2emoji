@@ -11,4 +11,8 @@ def hello_world():
     if request.method == 'GET':
         return render_template('landing_page.html')
     elif request.method == 'POST':
-        return emojify(request.form['text'])
+        # print(request.get_json()['text'])
+        # return '{method:"POST",url:"http://127.0.0.1:5000", "headers":{"Content-Type":["application/x-www-form-urlencoded"]}, body:"text=india"}'
+        result = emojify(request.get_json()['text'])
+        # print(result)
+        return {"text" : str(result)}

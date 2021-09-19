@@ -8,7 +8,7 @@
     
     <p>Make spice to texting, add relevant emoji, makes conversation fun and hilarious</p>
     
-    <form method="post" id= "textdata">
+    <form method="post" action="/" id= "textdata">
         <input type="text" name="text" id="input-text" required>
         <button type="submit">Emojify</button>
     </form>
@@ -16,27 +16,79 @@
     <p id="emojified_text"></p>
 
     <script>
-    const form = document.getElementById('textdata');
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
 
-        const formData = new FormData(this);
-        const searchParams = new URLSearchParams();
-        
-        for (const pair of formData) {
-            searchParams.append(pair[0], pair[1]);
+    async function postFormDataAsJson({ url, formData }) {
+        const plainFormData = Object.fromEntries(formData.entries());
+        const formDataJsonString = JSON.stringify(plainFormData);
+
+        const fetchOptions = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+            body: formDataJsonString,
+        };
+
+        const response = await fetch(url, fetchOptions);
+
+        if (!response.ok) {
+            const errorMessage = await response.text();
+            throw new Error(errorMessage);
         }
 
-        fetch('/', {
-            method: 'post',
-            body: searchParams
-        }).then(function (response) {
-            return response.text();
-        }).then(function (text) {
-            document.getElementById('emojified_text').innerText = text
-            console.log(text)
-        })
-    });
+        return response.json()
+    }
+
+
+    async function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const form = event.currentTarget;
+
+            const url = form.action
+
+            try {
+                const formData = new FormData(form)
+                const responseData = await postFormDataAsJson({ url, formData });
+                document.getElementById('emojified_text').innerText = responseData.text
+            } catch (error) {
+            console.error(error)
+            }
+        } 
+
+
+    const dataform = document.getElementById('textdata');
+
+    dataform.addEventListener('submit', handleFormSubmit);
+
+
+
+    // form.addEventListener('submit', function(e) {
+    //     e.preventDefault();
+
+    //     const formData = new FormData(this);
+    //     const searchParams = new URLSearchParams();
+        
+    //     for (const pair of formData) {
+    //         searchParams.append(pair[0], pair[1]);
+    //     }
+
+    //     console.log(formData)
+    //     const keyy = formData.pair[0]
+    //     const valuee = formData.pair[1]
+
+    //     fetch('/', {
+    //         method: 'POST',
+    //         headers: {'Content-Type': 'application/json'},
+    //         body: JSON.stringify({keyy: valuee })
+    //     }).then(function (response) {
+    //         return response.text();
+    //     }).then(function (text) {
+    //         document.getElementById('emojified_text').innerText = text
+    //         console.log(text)
+    //     })
+    // });
     </script>
 </html>
