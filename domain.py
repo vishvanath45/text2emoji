@@ -2,7 +2,7 @@ import json
 import random
 import string
 
-file = open('source1.json')
+file = open('merged_source.json')
 
 data = json.load(file)
 
