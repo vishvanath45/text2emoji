@@ -1,18 +1,73 @@
 <!doctype html>
 <html>
-    <title>Emojify</title>
-    <h1>Enter text below to emojify</h1>
-    
-    <p>Add👏👏 spice🌶️🔥🔥 to🌅 texting 💬, add👈 relevant emoji😏, make😬 it🙀 fun😉 and🚙 💬hilarious😆🔥 </p>
-    
-    <form method="post" action="/" id= "textdata">
-        <input type="text" name="text" id="input-text" required>
-        <button type="submit">Emojify</button>
-    </form>
+    <head>
+        
+        <link rel="shortcut icon" type="image/jpg" href="static/assets/favicon.ico"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 
-    <p id="emojified_text"></p>
+    </head>
+    <title>🔥🔥Emojify🔥🔥</title>
+
+    <body >
+
+        <div class="container">
+            <h1 style="align-self: center;margin-top: 1em;text-align: center;">Enter text below to emojify</h1>
+       
+       
+    
+        <h4 style="margin-top: 1em; text-align: center;">Add👏👏 spice🌶️🔥🔥 to🌅 texting 💬, add👈 relevant emoji😏, make😬 it🙀 fun😉 and🚙 💬hilarious😆🔥 </h4>
+        
+          
+        <form method="post" action="/" id= "textdata">
+
+
+            <div class="form-floating mb-3 g-3" style="margin-top: 1.2em;">
+            
+
+
+                <div class="form-floating">
+                    <textarea type="text" name="text" class="form-control" id="floatingTextarea" oninput="auto_grow(this)" style="max-height: 80%;"></textarea>
+                    <label for="floatingTextarea">Add Text💬 to emojify🔥🔥</label>
+                  </div>
+
+
+
+                <div class="col-12 d-grid gap-3" style="margin-top: 20px;">
+                    <button type="submit" class="btn btn-outline-dark btn-light" data-clipboard-target="#emojified_text">Emojify & Copy ✔️</button>
+                </div>
+
+
+                <!-- <p id="emojified_text"></p> -->
+
+                <div class="form-floating">
+                    <textarea id="emojified_text" class="form-control" style="margin-top: 20px;" ></textarea> 
+                    <label for="emojified_text">Result 🤩 😍</label>
+                </div>
+            
+              </div>
+             
+
+        </form>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+
+
+        <script src="static/js/clipboard.min.js"></script>
+    </div>
+    </body >
+
+
 
     <script>
+    new ClipboardJS('.btn');
+
+    function auto_grow(element) {
+            element.style.height = "5px";
+            element.style.height = (element.scrollHeight)+"px";
+        }
 
 
     async function postFormDataAsJson({ url, formData }) {
@@ -49,43 +104,15 @@
             try {
                 const formData = new FormData(form)
                 const responseData = await postFormDataAsJson({ url, formData });
-                document.getElementById('emojified_text').innerText = responseData.text
+                document.getElementById('emojified_text').value = responseData.text
             } catch (error) {
             console.error(error)
             }
-        } 
+        }
 
 
     const dataform = document.getElementById('textdata');
 
     dataform.addEventListener('submit', handleFormSubmit);
-
-
-
-    // form.addEventListener('submit', function(e) {
-    //     e.preventDefault();
-
-    //     const formData = new FormData(this);
-    //     const searchParams = new URLSearchParams();
-        
-    //     for (const pair of formData) {
-    //         searchParams.append(pair[0], pair[1]);
-    //     }
-
-    //     console.log(formData)
-    //     const keyy = formData.pair[0]
-    //     const valuee = formData.pair[1]
-
-    //     fetch('/', {
-    //         method: 'POST',
-    //         headers: {'Content-Type': 'application/json'},
-    //         body: JSON.stringify({keyy: valuee })
-    //     }).then(function (response) {
-    //         return response.text();
-    //     }).then(function (text) {
-    //         document.getElementById('emojified_text').innerText = text
-    //         console.log(text)
-    //     })
-    // });
     </script>
 </html>

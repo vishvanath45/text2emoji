@@ -11,8 +11,8 @@ def emojify(text):
     emojified_text = ""
 
     for word in words:
-        # word = word.lower()
-        emoji_list = data.get(word)
+        lc_word = word.lower()
+        emoji_list = data.get(lc_word)
         if(emoji_list == None ):
             emojified_text += word + " "
         else:
