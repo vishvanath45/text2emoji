@@ -16,5 +16,5 @@ def emojify(text):
         if(emoji_list == None ):
             emojified_text += word + " "
         else:
-            emojified_text += word + random.choice(emoji_list) + " "
+            emojified_text += word + random.choice(emoji_list) + random.choice(emoji_list)*(random.choices([0,1], weights=[3, 2])[0]) + " "
     return emojified_text
