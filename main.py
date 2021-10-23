@@ -17,6 +17,10 @@ def hello_world():
         # print(result)
         return {"text" : str(result)}
 
+@app.route("/robots.txt")
+def robots():
+    return "User-agent: *\nAllow: /"
+
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=8080)
